@@ -71,6 +71,9 @@ const io = new Server(server, {
     origin: "*"
   }
 });
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
 
 const userManager = new UserManager();
 
