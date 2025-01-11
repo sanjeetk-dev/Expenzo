@@ -68,7 +68,7 @@ const server = http.createServer(http);
 
 const io = new Server(server, {
   cors: {
-    origin: "*"
+    origin: "https://expenzo-fr.vercel.app/"
   }
 });
 app.get('/', (req, res) => {

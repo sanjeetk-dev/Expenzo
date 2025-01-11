@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-const URL = "http://localhost:3000";
+const URL = "https://expenzo-bc.vercel.app";
 
 interface RoomProps {
   name: string;
