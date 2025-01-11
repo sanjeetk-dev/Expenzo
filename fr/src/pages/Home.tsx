@@ -42,7 +42,7 @@ const Home = () => {
       </div>
 
       <div className="max-w-fit w-full py-2 px-3 flex gap-1.5 bg-gray-200 mt-5 rounded-md items-center justify-between">
-        {BUTTONLIST.map(({ name, Icon }, i) => (
+        {BUTTONLIST.map(({ name, Icon }) => (
           <Button key={name} className={`capitalize ${preview === name ? "bg-gray-400" : ""}`} onClick={() => setPreview(name)}>
           <Icon className="w-5 h-5" />
           <span className="hidden md:block text-sm font-medium">

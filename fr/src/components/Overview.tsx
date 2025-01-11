@@ -1,4 +1,4 @@
-import React from 'react'
+import Financial from './FinancialOverview';
 
 const Overview = () => {
   return (
@@ -12,7 +12,7 @@ const Overview = () => {
       </div>
 
       <div className="">
-      hello
+        <Financial />
       </div>
     </div>
   )

@@ -3,9 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { FaUserCircle } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/redux/index';
-import { setUser, removeUser } from '@/redux/userSlice';
-
+import { RootState } from '@/redux/index';
 const Navbar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,7 +13,6 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.user.user);
-  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
