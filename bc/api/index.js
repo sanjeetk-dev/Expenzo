@@ -61,7 +61,7 @@ import http from "http";
 
 import express from 'express';
 import { Server } from 'socket.io';
-import { UserManager } from './manager/UserManger.js';
+import { UserManager } from '../manager/UserManger.js';
 
 const app = express();
 const server = http.createServer(http);

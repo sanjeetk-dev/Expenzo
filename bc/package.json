@@ -2,11 +2,11 @@
   "name": "bc",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node ./api/index.js",
+    "dev": "nodemon ./api/index.js"
   },
   "keywords": [],
   "author": "",
