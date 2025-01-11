@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 const URL = "https://expenzo-bc.vercel.app";
 
@@ -11,14 +11,13 @@ interface RoomProps {
 
 export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTrack }) => {
   const [lobby, setLobby] = useState<boolean>(true);
-  const [socket, setSocket] = useState<Socket | null>(null);
   const [sendingPc, setSendingPc] = useState<RTCPeerConnection | null>(null);
   const [receivingPc, setReceivingPc] = useState<RTCPeerConnection | null>(null);
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null);
   const localVideoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const socketInstance = io(URL);
+    const socket = io(URL);
 
     const setupLocalVideo = (): void => {
       if (localVideoRef.current && localVideoTrack) {
@@ -38,7 +37,7 @@ export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTra
 
       pc.onicecandidate = (e) => {
         if (e.candidate) {
-          socketInstance.emit("add-ice-candidate", {
+          socket.emit("add-ice-candidate", {
             candidate: e.candidate,
             type: "sender",
             roomId,
@@ -49,7 +48,7 @@ export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTra
       pc.onnegotiationneeded = async () => {
         const offer = await pc.createOffer();
         await pc.setLocalDescription(offer);
-        socketInstance.emit("offer", { sdp: offer, roomId });
+        socket.emit("offer", { sdp: offer, roomId });
       };
     };
 
@@ -68,7 +67,7 @@ export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTra
 
       pc.onicecandidate = (e) => {
         if (e.candidate) {
-          socketInstance.emit("add-ice-candidate", {
+          socket.emit("add-ice-candidate", {
             candidate: e.candidate,
             type: "receiver",
             roomId,
@@ -80,7 +79,7 @@ export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTra
       const answer = await pc.createAnswer();
       await pc.setLocalDescription(answer);
 
-      socketInstance.emit("answer", { roomId, sdp: answer });
+      socket.emit("answer", { roomId, sdp: answer });
     };
 
     const handleAddIceCandidate = ({
@@ -98,16 +97,15 @@ export const Room: React.FC<RoomProps> = ({ name, localAudioTrack, localVideoTra
     };
 
     // Socket Event Listeners
-    socketInstance.on("send-offer", handleSendOffer);
-    socketInstance.on("offer", handleReceiveOffer);
-    socketInstance.on("add-ice-candidate", handleAddIceCandidate);
-    socketInstance.on("lobby", () => setLobby(true));
+    socket.on("send-offer", handleSendOffer);
+    socket.on("offer", handleReceiveOffer);
+    socket.on("add-ice-candidate", handleAddIceCandidate);
+    socket.on("lobby", () => setLobby(true));
 
-    setSocket(socketInstance);
     setupLocalVideo();
 
     return () => {
-      socketInstance.disconnect();
+      socket.disconnect();
     };
   }, [localAudioTrack, localVideoTrack]);
 

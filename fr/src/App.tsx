@@ -2,16 +2,13 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
-  useNavigate
+  useLocation
 } from 'react-router-dom';
-import { Suspense, useEffect, lazy, useState } from 'react';
+import { Suspense, useEffect, lazy } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageNotFound from '@/components/PageNotFound';
 import { SkeletonCard } from "@/components/SkeletonCard"
-import { useDispatch, useSelector } from 'react-redux';
-
 const Home = lazy(() => import('@/pages/Home'));
 const Call = lazy(() => import('@/pages/video-calling'));
 

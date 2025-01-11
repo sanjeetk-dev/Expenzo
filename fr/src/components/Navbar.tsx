@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { FaUserCircle } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/index';
 const Navbar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -112,7 +112,6 @@ const Navbar: React.FC = () => {
                     <button
                       className="block w-full text-left px-4 py-2 hover:bg-gray-700"
                       onClick={() => {
-                        dispatch(removeUser())
                         setIsProfileMenuOpen(false);
                         navigate('/login');
                       }}
